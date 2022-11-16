@@ -1,0 +1,21 @@
+.box {
+  width: 100%;
+  height: 80px;
+  background: #000;
+}
+.link {
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #010101;
+  margin-bottom: 15px;
+}
+.link:hover {
+  color: #ff6b0a;
+}
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
