@@ -8,7 +8,10 @@
   text-decoration: none;
   text-transform: uppercase;
   color: #010101;
-  margin-bottom: 15px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
 }
 .link:hover {
   color: #ff6b0a;
@@ -18,4 +21,11 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-bottom: 48px;
 }
