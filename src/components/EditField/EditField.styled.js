@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const EditFieldWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
+export const EditFieldWrapper = styled.li`
+  display: flex;
+  justify-content: space-between;
 `;
