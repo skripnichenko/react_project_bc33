@@ -1,67 +1,157 @@
 import React from "react";
+import Button from "../Button/Button";
 import s from "./Form.module.css";
 
-const tutorsFormList = [
-  {
+const tutorsFormList = {
+  lastName: {
     name: "lastName",
     type: "text",
     placeholder: "Прізвище",
   },
-  {
+  firstName: {
     name: "firstName",
     type: "text",
     placeholder: "Ім'я",
   },
-  {
-    name: "lastName",
+  patronymic: {
+    name: "patronymic",
     type: "text",
-    placeholder: "Прізвище",
+    placeholder: "По-батькові",
   },
-  {
-    name: "lastName",
+  phone: {
+    name: "phone",
     type: "text",
-    placeholder: "Прізвище",
+    placeholder: "Телефон",
   },
-  {
-    name: "lastName",
+  email: {
+    name: "email",
     type: "text",
-    placeholder: "Прізвище",
+    placeholder: "Email",
   },
-  {
-    name: "lastName",
+  city: {
+    name: "city",
     type: "text",
-    placeholder: "Прізвище",
+    placeholder: "Місто",
   },
-  {
-    name: "lastName",
-    type: "text",
-    placeholder: "Прізвище",
-  },
-];
+};
 
 export class TutorsForm extends React.Component {
+  state = Object.keys(tutorsFormList).reduce((acc, cur) => {
+    acc[cur] = "";
+    return acc;
+  }, {});
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
   render() {
     return (
-      <div>
+      <div className={s.wrap}>
         <h3>Додати викладача</h3>
-        <form className={s.form}>
-          {/* <input type="text" name="lastName" placeholder="Прізвище" />
-          <input type="text" name="firstName" placeholder="Ім'я" />
-          <input type="text" name="patronymic" placeholder="По-батькові" />
-          <input type="phone" name="phone" placeholder="Телефон" />
-          <input type="email" name="email" placeholder="Email" />
-          <input type="text" name="city" placeholder="Місто" /> */}
-          {tutorsFormList.map(({ type, name, placeholder }) => {
-            return (
-              <input
-                className={s.inputWrapper}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-              />
-            );
-          })}
-          <button type="submit">Запросити</button>
+        <form onSubmit={this.onSubmit}>
+          <div className={s.form}>
+            {Object.keys(tutorsFormList).map((el, ind) => {
+              const { type, name, placeholder } = tutorsFormList[el];
+              return (
+                <input
+                  key={ind}
+                  className={s.inputWrapper}
+                  type={type}
+                  name={name}
+                  placeholder={placeholder}
+                  onChange={this.onChange}
+                  value={this.state[name]}
+                />
+              );
+            })}
+          </div>
+
+          <Button title="Запросити" />
+        </form>
+      </div>
+    );
+  }
+}
+
+export class CitiesForm extends React.Component {
+  state = {
+    city: "",
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  render() {
+    const { city } = this.state;
+    return (
+      <div className={s.wrap}>
+        <h3>Додати місто</h3>
+        <form onSubmit={this.onSubmit}>
+          <input
+            className={s.inputWrapper}
+            type="text"
+            name="city"
+            placeholder="Місто"
+            onChange={this.onChange}
+            value={city}
+          />
+          <Button title="Додати" />
+        </form>
+      </div>
+    );
+  }
+}
+
+export class FacultiesForm extends React.Component {
+  state = {
+    faculty: "",
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  render() {
+    const { faculty } = this.state;
+    return (
+      <div className={s.wrap}>
+        <h3>Додати факультет</h3>
+        <form onSubmit={this.onSubmit}>
+          <input
+            className={s.inputWrapper}
+            type="text"
+            name="faculty"
+            placeholder="Факультет"
+            onChange={this.onChange}
+            value={faculty}
+          />
+          <Button title="Додати" />
         </form>
       </div>
     );
