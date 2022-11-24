@@ -49,5 +49,5 @@ Tutors.propTypes = {
   phone: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  options: PropTypes.string.isRequired,
+  options: PropTypes.string,
 };

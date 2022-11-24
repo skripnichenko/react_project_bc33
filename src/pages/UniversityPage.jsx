@@ -19,6 +19,9 @@ import data from "../utils/data.json";
 class UniversityPage extends React.Component {
   state = {
     openedForm: "",
+    cities: data.cities,
+    faculties: data.department,
+    tutors: data.tutors,
   };
 
   changeOpenedForm = (param) => {
@@ -27,9 +30,26 @@ class UniversityPage extends React.Component {
     });
   };
 
+  addCities = (city) => {
+    this.setState({
+      cities: [...this.state.cities, city],
+    });
+  };
+  addFaculties = (faculty) => {
+    this.setState({
+      faculties: [...this.state.faculties, { name: faculty }],
+    });
+  };
+  addTutors = (tutor) => {
+    this.setState({
+      tutors: [...this.state.tutors, tutor],
+    });
+  };
+
   render() {
     const { name, description } = data;
-    const { openedForm } = this.state;
+    const { openedForm, cities, faculties, tutors } = this.state;
+
     return (
       <Main>
         <Section title="Інформація про університет" isLeft={false}>
@@ -41,8 +61,8 @@ class UniversityPage extends React.Component {
           </div>
         </Section>
         <Section title="Викладачі" img={cat}>
-          <TutorsList />
-          {openedForm === "tutors" && <TutorsForm />}
+          <TutorsList tutors={tutors} />
+          {openedForm === "tutors" && <TutorsForm addTutors={this.addTutors} />}
           <Button
             title="Додати викладача"
             callback={() => this.changeOpenedForm("tutors")}
@@ -50,8 +70,8 @@ class UniversityPage extends React.Component {
           />
         </Section>
         <Section title="Міста" img={candy}>
-          <CitiesList />
-          {openedForm === "cities" && <CitiesForm />}
+          <CitiesList cities={cities} />
+          {openedForm === "cities" && <CitiesForm addCities={this.addCities} />}
           <Button
             title="Додати місто"
             callback={() => this.changeOpenedForm("cities")}
@@ -59,8 +79,10 @@ class UniversityPage extends React.Component {
           />
         </Section>
         <Section title="Факультети" img={robot}>
-          <FacultiesList />
-          {openedForm === "faculties" && <FacultiesForm />}
+          <FacultiesList faculties={faculties} />
+          {openedForm === "faculties" && (
+            <FacultiesForm addFaculties={this.addFaculties} />
+          )}
           <Button
             title="Додати факультет"
             callback={() => this.changeOpenedForm("faculties")}

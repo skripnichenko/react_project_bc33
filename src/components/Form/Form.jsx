@@ -43,6 +43,7 @@ export class TutorsForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.props.addTutors(this.state);
     console.log(this.state);
   };
 
@@ -89,7 +90,10 @@ export class CitiesForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.addCities(this.state.city);
+    this.setState({
+      city: "",
+    });
   };
 
   onChange = (e) => {
@@ -127,7 +131,7 @@ export class FacultiesForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.addFaculties(this.state.faculty);
   };
 
   onChange = (e) => {

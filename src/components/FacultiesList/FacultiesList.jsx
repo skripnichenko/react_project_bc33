@@ -1,18 +1,27 @@
 import React, { Component } from "react";
-import data from '../../utils/data.json'
-import EditField from '../EditField/EditField';
-import { nanoid } from 'nanoid'
+import EditField from "../EditField/EditField";
+import { nanoid } from "nanoid";
+import PropTypes from "prop-types";
 
 class FacultiesList extends Component {
-  static defaultProps = {};
+  static defaultProps = { faculties: [] };
 
-    render() {
-        const { department } = data;
-        return <ul>
-            {department.map(el => {
-                return  <EditField key={nanoid()} title={el.name}/>
-            })}
-    </ul>;
+  render() {
+    const { faculties } = this.props;
+    return (
+      <ul className="row">
+        {faculties.map((el) => {
+          return <EditField key={nanoid()} title={el.name} />;
+        })}
+      </ul>
+    );
   }
-};
+}
 export default FacultiesList;
+FacultiesList.propTypes = {
+  faculties: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ),
+};

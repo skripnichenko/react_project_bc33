@@ -7,7 +7,7 @@ import Paper from "../Paper/Paper";
 
 export default class Edit extends Component {
   render() {
-    const { tutors } = data;
+    const { tutors } = this.props;
     return (
       <ul>
         {tutors.map(
@@ -21,7 +21,7 @@ export default class Edit extends Component {
             options,
           }) => {
             return (
-              <li key={email}>
+              <li className="mb-2" key={email}>
                 <Paper>
                   <Tutors
                     firstName={firstName}
