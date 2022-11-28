@@ -5,39 +5,29 @@ import { nanoid } from "nanoid";
 import Tutors from "../Tutors/Tutors";
 import Paper from "../Paper/Paper";
 
-export default class Edit extends Component {
-  render() {
-    const { tutors } = this.props;
-    return (
-      <ul>
-        {tutors.map(
-          ({
-            firstName,
-            lastName,
-            patronymic,
-            phone,
-            email,
-            city,
-            options,
-          }) => {
-            return (
-              <li className="mb-2" key={email}>
-                <Paper>
-                  <Tutors
-                    firstName={firstName}
-                    lastName={lastName}
-                    patronymic={patronymic}
-                    phone={phone}
-                    email={email}
-                    city={city}
-                    options={options}
-                  />
-                </Paper>
-              </li>
-            );
-          }
-        )}
-      </ul>
-    );
-  }
-}
+const Edit = ({ tutors = [] }) => {
+  return (
+    <ul>
+      {tutors.map(
+        ({ firstName, lastName, patronymic, phone, email, city, options }) => {
+          return (
+            <li className="mb-2" key={email}>
+              <Paper>
+                <Tutors
+                  firstName={firstName}
+                  lastName={lastName}
+                  patronymic={patronymic}
+                  phone={phone}
+                  email={email}
+                  city={city}
+                  options={options}
+                />
+              </Paper>
+            </li>
+          );
+        }
+      )}
+    </ul>
+  );
+};
+export default Edit;

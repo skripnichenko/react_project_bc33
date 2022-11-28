@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Card from "../components/Card/Card";
 import Main from "../components/Main/Main";
@@ -16,82 +16,68 @@ import FacultiesList from "../components/FacultiesList/FacultiesList";
 import { CitiesForm, FacultiesForm, TutorsForm } from "../components/Form/Form";
 import data from "../utils/data.json";
 
-class UniversityPage extends React.Component {
-  state = {
-    openedForm: "",
-    cities: data.cities,
-    faculties: data.department,
-    tutors: data.tutors,
+const UniversityPage = () => {
+  const [openedForm, setOpenedForm] = useState("");
+  const [cities, setCities] = useState(data.cities);
+  const [faculties, setFaculties] = useState(data.department);
+  const [tutors, setTutors] = useState(data.tutors);
+  const { name, description } = data;
+
+  const changeOpenedForm = (param) => {
+    setOpenedForm((prevState) => (prevState === param ? "" : param));
   };
 
-  changeOpenedForm = (param) => {
-    this.setState({
-      openedForm: this.state.openedForm === param ? "" : param,
-    });
+  const addCities = (city) => {
+    setCities((prevState) => [...prevState, city]);
+  };
+  const addFaculties = (faculty) => {
+    setFaculties((prevState) => [...prevState, { name: faculty }]);
+  };
+  const addTutors = (tutor) => {
+    setTutors((prevState) => [...prevState, tutor]);
   };
 
-  addCities = (city) => {
-    this.setState({
-      cities: [...this.state.cities, city],
-    });
-  };
-  addFaculties = (faculty) => {
-    this.setState({
-      faculties: [...this.state.faculties, { name: faculty }],
-    });
-  };
-  addTutors = (tutor) => {
-    this.setState({
-      tutors: [...this.state.tutors, tutor],
-    });
-  };
-
-  render() {
-    const { name, description } = data;
-    const { openedForm, cities, faculties, tutors } = this.state;
-
-    return (
-      <Main>
-        <Section title="Інформація про університет" isLeft={false}>
-          <div className={s.universityInfo}>
-            <Paper width="144px">
-              <Card name={name} />
-            </Paper>
-            <Paper>{description}</Paper>
-          </div>
-        </Section>
-        <Section title="Викладачі" img={cat}>
-          <TutorsList tutors={tutors} />
-          {openedForm === "tutors" && <TutorsForm addTutors={this.addTutors} />}
-          <Button
-            title="Додати викладача"
-            callback={() => this.changeOpenedForm("tutors")}
-            isImg={true}
-          />
-        </Section>
-        <Section title="Міста" img={candy}>
-          <CitiesList cities={cities} />
-          {openedForm === "cities" && <CitiesForm addCities={this.addCities} />}
-          <Button
-            title="Додати місто"
-            callback={() => this.changeOpenedForm("cities")}
-            isImg={true}
-          />
-        </Section>
-        <Section title="Факультети" img={robot}>
-          <FacultiesList faculties={faculties} />
-          {openedForm === "faculties" && (
-            <FacultiesForm addFaculties={this.addFaculties} />
-          )}
-          <Button
-            title="Додати факультет"
-            callback={() => this.changeOpenedForm("faculties")}
-            isImg={true}
-          />
-        </Section>
-      </Main>
-    );
-  }
-}
+  return (
+    <Main>
+      <Section title="Інформація про університет" isLeft={false}>
+        <div className={s.universityInfo}>
+          <Paper width="144px">
+            <Card name={name} />
+          </Paper>
+          <Paper>{description}</Paper>
+        </div>
+      </Section>
+      <Section title="Викладачі" img={cat}>
+        <TutorsList tutors={tutors} />
+        {openedForm === "tutors" && <TutorsForm addTutors={addTutors} />}
+        <Button
+          title="Додати викладача"
+          callback={() => changeOpenedForm("tutors")}
+          isImg={true}
+        />
+      </Section>
+      <Section title="Міста" img={candy}>
+        <CitiesList cities={cities} />
+        {openedForm === "cities" && <CitiesForm addCities={addCities} />}
+        <Button
+          title="Додати місто"
+          callback={() => changeOpenedForm("cities")}
+          isImg={true}
+        />
+      </Section>
+      <Section title="Факультети" img={robot}>
+        <FacultiesList faculties={faculties} />
+        {openedForm === "faculties" && (
+          <FacultiesForm addFaculties={addFaculties} />
+        )}
+        <Button
+          title="Додати факультет"
+          callback={() => changeOpenedForm("faculties")}
+          isImg={true}
+        />
+      </Section>
+    </Main>
+  );
+};
 
 export default UniversityPage;
