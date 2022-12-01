@@ -3,11 +3,11 @@ import EditField from "../EditField/EditField";
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 
-const FacultiesList = ({ faculties = [] }) => {
+const FacultiesList = ({ faculties = [], deleteFaculty = () => {} }) => {
   return (
     <ul className="row">
-      {faculties.map((el) => {
-        return <EditField key={nanoid()} title={el.name} from="faculties" />;
+      {faculties.map(({name, id}) => {
+        return <EditField key={nanoid()} title={name} from="faculties" id={id} deleteFunc={deleteFaculty}  />;
       })}
     </ul>
   );
@@ -19,4 +19,5 @@ FacultiesList.propTypes = {
       name: PropTypes.string.isRequired,
     })
   ),
+  deleteFaculty: PropTypes.func.isRequired,
 };

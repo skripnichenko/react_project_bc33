@@ -37,6 +37,23 @@ const UniversityPage = () => {
     setTutors((prevState) => [...prevState, tutor]);
   };
 
+  const deleteCity = (id) => {
+    setCities((prevState) => prevState.filter(el => el.id !== id))
+  }
+
+  const deleteFaculty = (id) => {
+    setFaculties((prevState) => prevState.filter(el => el.id !== id))
+  }
+
+  const editCity = (id, title) => {
+    setCities(prevState => prevState.map(el => el.id !== id ? el : {...el, name: title}))
+  }
+
+  const editFaculty = (id, title) => {
+    setFaculties(prevState => prevState.map(el => el.id !== id ? el : {...el, name: title}))
+  }
+
+
   return (
     <Main>
       <Section title="Інформація про університет" isLeft={false}>
@@ -57,7 +74,7 @@ const UniversityPage = () => {
         />
       </Section>
       <Section title="Міста" img={candy}>
-        <CitiesList cities={cities} />
+        <CitiesList cities={cities} deleteCity={deleteCity} />
         {openedForm === "cities" && <CitiesForm addCities={addCities} />}
         <Button
           title="Додати місто"
@@ -66,7 +83,7 @@ const UniversityPage = () => {
         />
       </Section>
       <Section title="Факультети" img={robot}>
-        <FacultiesList faculties={faculties} />
+        <FacultiesList faculties={faculties} deleteFaculty={deleteFaculty} />
         {openedForm === "faculties" && (
           <FacultiesForm addFaculties={addFaculties} />
         )}

@@ -2,19 +2,29 @@ import warning from "../../assets/warning.svg";
 import Button from "../Button/Button";
 import { Img } from "./Modal.styled";
 import edit from "../../assets/edit.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Modal = ({ clickModal }) => {
+const Modal = ({ clickModal, from, setClickModal }) => {
   const [city, setCity] = useState("");
-  console.log(clickModal);
+
+  console.log(
+    clickModal, from
+  );
+
   const handleChange = (e) => {
     setCity(e.target.value);
   };
 
   const hundleSubmit = (e) => {
     e.preventDefault();
-    console.log(city);
+    setClickModal('')
   };
+
+  useEffect(() => {
+    return () => {
+      setClickModal('');
+    }
+  }, [setClickModal])
 
   return (
     <div
@@ -30,33 +40,33 @@ const Modal = ({ clickModal }) => {
             <>
               <Img src={warning} alt="" width="40" />
               <h5 class="modal-title" id="exampleModalLabel">
-                Видалення факультету
+                Видалення {from === 'city' ? 'міста' : 'факультету'}
               </h5>
-              <p>Будуть видалені всі матеріали та інформація про факультет</p>
+              <p>Будуть видалені всі матеріали та інформація про {from === 'city' ? 'місто' : 'факультет'}</p>
               <div className="d-flex justify-content-center">
                 <Button
                   title="Ні"
                   type="button"
                   data-bs-dismiss="modal"
                   isGray={true}
+                  callback={() => setClickModal('')}
                 />
-                <Button title="Так" type="button" data-bs-dismiss="modal" />
+                <Button title="Так" type="button" data-bs-dismiss="modal" callback={() => setClickModal('')} />
               </div>
             </>
           ) : (
             <>
               <Img src={edit} alt="" width="40" />
               <h5 class="modal-title" id="exampleModalLabel">
-                Редактировать информацию о Городе
+                Редактировать информацию о {from === 'city' ? 'Городе' : 'Факультете'}
               </h5>
               <form onSubmit={hundleSubmit}>
                 <label className="w-100 text-start">
-                  Місто
+                {from === 'city' ? 'Місто' : 'Факультет'}
                   <br />
                   <input
                     className="w-100"
                     type="text"
-                    name={"city"}
                     onChange={handleChange}
                     value={city}
                   />
@@ -66,6 +76,7 @@ const Modal = ({ clickModal }) => {
                   type="submit"
                   data-bs-dismiss="modal"
                   isCentered={true}
+                  callback={() => setClickModal('')}
                 />
               </form>
             </>
