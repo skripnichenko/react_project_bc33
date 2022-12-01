@@ -7,7 +7,9 @@ const CitiesList = ({ cities = [] }) => {
   return (
     <ul className="row">
       {cities.map((el) => {
-        return <EditField className="col-4" key={nanoid()} title={el} />;
+        return (
+          <EditField className="col-4" key={nanoid()} title={el} from="city" />
+        );
       })}
     </ul>
   );

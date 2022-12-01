@@ -6,11 +6,12 @@ export const ButtonWrapper = styled.button`
   color: #fff;
   text-transform: uppercase;
   border: none;
+  margin: ${(props) => (props.isCentered ? "0 auto" : "0px")};
   font-weight: bold;
   margin-top: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-right: ${(props) => (props.isGray ? "32px" : "0px")};
+  margin-right: ${(props) => (props.isGray ? "32px" : "auto")};
 `;

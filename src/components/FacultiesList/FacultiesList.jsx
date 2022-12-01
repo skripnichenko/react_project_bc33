@@ -7,7 +7,7 @@ const FacultiesList = ({ faculties = [] }) => {
   return (
     <ul className="row">
       {faculties.map((el) => {
-        return <EditField key={nanoid()} title={el.name} />;
+        return <EditField key={nanoid()} title={el.name} from="faculties" />;
       })}
     </ul>
   );

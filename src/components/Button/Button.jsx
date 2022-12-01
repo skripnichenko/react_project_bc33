@@ -5,6 +5,7 @@ import { ButtonWrapper } from "./Button.styled";
 import plus from "../../assets/plus.svg";
 
 const Button = ({
+  isCentered = false,
   isImg = false,
   title = "",
   callback = () => {},
@@ -12,7 +13,12 @@ const Button = ({
   ...props
 }) => {
   return (
-    <ButtonWrapper onClick={callback} isGray={isGray} {...props}>
+    <ButtonWrapper
+      onClick={callback}
+      isGray={isGray}
+      isCentered={isCentered}
+      {...props}
+    >
       {isImg && <img src={plus} alt="" />}
       {title}
     </ButtonWrapper>
