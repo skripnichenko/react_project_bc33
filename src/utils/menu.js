@@ -4,11 +4,13 @@ import faculty from "../assets/faculty.svg";
 export const menuConfig = [
     {
         name: "Університет",
-        img: university
+        img: university,
+        path: 'university'
     },
 
     {
         name: "Факультети",
-        img: faculty
+        img: faculty,
+        path: 'faculties'
     },
 ];

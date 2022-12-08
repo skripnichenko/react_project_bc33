@@ -5,8 +5,9 @@ import { EditFieldWrapper, ModalMenu } from "./EditField.styled";
 import note from "../../assets/note.svg";
 import bin from "../../assets/bin.svg";
 import Modal from "../Modal/Modal";
+import { Link } from "react-router-dom";
 
-const EditField = ({ title = "", from, id, deleteFunc }) => {
+const EditField = ({ title = "", from, id, deleteFunc, editFunc, isFacultyPage }) => {
   const [showModal, setShowModal] = useState(false);
   const [clickModal, setClickModal] = useState("");
 
@@ -21,7 +22,9 @@ const EditField = ({ title = "", from, id, deleteFunc }) => {
   return (
     <Paper className="col-sm-6 col-xs-12 col-lg-4 mx-2 mb-2 position-relative">
       <EditFieldWrapper>
-        <div>{title}</div>
+        {isFacultyPage ? <Link to={`/faculties/${id}`}>
+          <div>{title}</div>
+        </Link> : <div>{title}</div>}
         <div>
           <img onClick={changeShowModal} src={dots} alt="" />
         </div>
@@ -29,36 +32,32 @@ const EditField = ({ title = "", from, id, deleteFunc }) => {
           <ModalMenu>
             <button
               onClick={() => {
-                setClickModal("edit");
+                setClickModal("Edit");
               }}
-              value="edit"
               className="d-flex align-items-center border-0 bg-body"
               type="button"
-              // class="btn btn-primary"
-              // data-bs-toggle="modal"
-              // data-bs-target="#exampleModal"
+              data-bs-toggle="modal"
+              data-bs-target={`#exampleModalEdit${from + id}`}
             >
               <img src={note} alt="note" />
               <span className="ms-2">Редагувати</span>
             </button>
             <button
-              // onClick={() => {
-              //   setClickModal("delete");
-              // }}
-              onClick={handleClick}
-              value="delete"
+              onClick={() => {
+                setClickModal("Delete");
+              }}
               className="d-flex align-items-center border-0 bg-body"
               type="button"
-              // class="btn btn-primary"
-              // data-bs-toggle="modal"
-              // data-bs-target="#exampleModal"
+              data-bs-toggle="modal"
+              data-bs-target={`#exampleModalDelete${from + id}`}
             >
               <img src={bin} alt="bin" />
               <span className="ms-2">Видалити</span>
             </button>
           </ModalMenu>
         )}
-        <Modal clickModal={clickModal} from={from} setClickModal={setClickModal} />
+        <Modal clickModal={'Delete'} from={from} id={id} setClickModal={setClickModal} handleClick={handleClick} />
+        <Modal clickModal={'Edit'} from={from} id={id} setClickModal={setClickModal} editFunc={editFunc} />
       </EditFieldWrapper>
     </Paper>
   );

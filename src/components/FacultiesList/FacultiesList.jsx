@@ -3,11 +3,11 @@ import EditField from "../EditField/EditField";
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 
-const FacultiesList = ({ faculties = [], deleteFaculty = () => {} }) => {
+const FacultiesList = ({ faculties = [], deleteFaculty = () => {}, editFaculty = () => {}, isFacultyPage = false }) => {
   return (
     <ul className="row">
       {faculties.map(({name, id}) => {
-        return <EditField key={nanoid()} title={name} from="faculties" id={id} deleteFunc={deleteFaculty}  />;
+        return <EditField isFacultyPage={isFacultyPage} key={nanoid()} title={name} from="faculties" id={id} deleteFunc={deleteFaculty} editFunc={editFaculty} />;
       })}
     </ul>
   );

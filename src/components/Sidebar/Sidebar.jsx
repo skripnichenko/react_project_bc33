@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 import styles from "./Sidebar.module.css";
 import avatar from "../../assets/avatar.svg";
 import { menuConfig } from '../../utils/menu';
+import { Link } from 'react-router-dom';
 
 const Sidebar = (props) => {
   return <aside>
@@ -9,9 +10,9 @@ const Sidebar = (props) => {
     <div className={styles.wrap}>
       <div>
         {menuConfig.map(el => {
-          return <a key={nanoid()} className={styles.link} href="">
+          return <Link key={nanoid()} className={styles.link} to={el.path}>
             <img src={el.img} alt="" /> <span>{el.name}</span>
-          </a>
+          </Link>
         })}
       </div>
       <div className={styles.avatar}>

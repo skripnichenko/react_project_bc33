@@ -74,7 +74,7 @@ const UniversityPage = () => {
         />
       </Section>
       <Section title="Міста" img={candy}>
-        <CitiesList cities={cities} deleteCity={deleteCity} />
+        <CitiesList cities={cities} deleteCity={deleteCity} editCity={editCity} />
         {openedForm === "cities" && <CitiesForm addCities={addCities} />}
         <Button
           title="Додати місто"
@@ -83,7 +83,7 @@ const UniversityPage = () => {
         />
       </Section>
       <Section title="Факультети" img={robot}>
-        <FacultiesList faculties={faculties} deleteFaculty={deleteFaculty} />
+        <FacultiesList faculties={faculties} deleteFaculty={deleteFaculty} editFaculty={editFaculty} />
         {openedForm === "faculties" && (
           <FacultiesForm addFaculties={addFaculties} />
         )}

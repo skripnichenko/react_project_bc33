@@ -4,12 +4,9 @@ import { Img } from "./Modal.styled";
 import edit from "../../assets/edit.svg";
 import { useEffect, useState } from "react";
 
-const Modal = ({ clickModal, from, setClickModal }) => {
+const Modal = ({ clickModal, from, setClickModal, id, handleClick, editFunc }) => {
   const [city, setCity] = useState("");
 
-  console.log(
-    clickModal, from
-  );
 
   const handleChange = (e) => {
     setCity(e.target.value);
@@ -17,29 +14,24 @@ const Modal = ({ clickModal, from, setClickModal }) => {
 
   const hundleSubmit = (e) => {
     e.preventDefault();
-    setClickModal('')
+    editFunc(id, city)
   };
 
-  useEffect(() => {
-    return () => {
-      setClickModal('');
-    }
-  }, [setClickModal])
 
   return (
     <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
+      className="modal fade"
+      id={`exampleModal${clickModal + from + id}`}
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center p-4">
-          {clickModal === "delete" ? (
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content text-center p-4">
+          {clickModal === "Delete" ? (
             <>
               <Img src={warning} alt="" width="40" />
-              <h5 class="modal-title" id="exampleModalLabel">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Видалення {from === 'city' ? 'міста' : 'факультету'}
               </h5>
               <p>Будуть видалені всі матеріали та інформація про {from === 'city' ? 'місто' : 'факультет'}</p>
@@ -49,15 +41,15 @@ const Modal = ({ clickModal, from, setClickModal }) => {
                   type="button"
                   data-bs-dismiss="modal"
                   isGray={true}
-                  callback={() => setClickModal('')}
+                  // callback={handleClick}
                 />
-                <Button title="Так" type="button" data-bs-dismiss="modal" callback={() => setClickModal('')} />
+                <Button title="Так" type="button" data-bs-dismiss="modal" callback={handleClick} />
               </div>
             </>
           ) : (
             <>
               <Img src={edit} alt="" width="40" />
-              <h5 class="modal-title" id="exampleModalLabel">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Редактировать информацию о {from === 'city' ? 'Городе' : 'Факультете'}
               </h5>
               <form onSubmit={hundleSubmit}>
@@ -76,7 +68,7 @@ const Modal = ({ clickModal, from, setClickModal }) => {
                   type="submit"
                   data-bs-dismiss="modal"
                   isCentered={true}
-                  callback={() => setClickModal('')}
+                  // callback={() => setClickModal('')}
                 />
               </form>
             </>
