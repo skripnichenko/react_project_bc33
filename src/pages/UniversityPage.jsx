@@ -15,6 +15,7 @@ import CitiesList from "../components/CitiesList/CitiesList";
 import FacultiesList from "../components/FacultiesList/FacultiesList";
 import { CitiesForm, FacultiesForm, TutorsForm } from "../components/Form/Form";
 import data from "../utils/data.json";
+import { useSelector } from "react-redux";
 
 const UniversityPage = () => {
   const [openedForm, setOpenedForm] = useState("");
@@ -22,6 +23,9 @@ const UniversityPage = () => {
   const [faculties, setFaculties] = useState(data.department);
   const [tutors, setTutors] = useState(data.tutors);
   const { name, description } = data;
+
+  const citiesStor = useSelector((state) => state.cities.cities);
+  console.log(citiesStor);
 
   const changeOpenedForm = (param) => {
     setOpenedForm((prevState) => (prevState === param ? "" : param));
@@ -38,21 +42,24 @@ const UniversityPage = () => {
   };
 
   const deleteCity = (id) => {
-    setCities((prevState) => prevState.filter(el => el.id !== id))
-  }
+    setCities((prevState) => prevState.filter((el) => el.id !== id));
+  };
 
   const deleteFaculty = (id) => {
-    setFaculties((prevState) => prevState.filter(el => el.id !== id))
-  }
+    setFaculties((prevState) => prevState.filter((el) => el.id !== id));
+  };
 
   const editCity = (id, title) => {
-    setCities(prevState => prevState.map(el => el.id !== id ? el : {...el, name: title}))
-  }
+    setCities((prevState) =>
+      prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
+    );
+  };
 
   const editFaculty = (id, title) => {
-    setFaculties(prevState => prevState.map(el => el.id !== id ? el : {...el, name: title}))
-  }
-
+    setFaculties((prevState) =>
+      prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
+    );
+  };
 
   return (
     <Main>
@@ -74,7 +81,11 @@ const UniversityPage = () => {
         />
       </Section>
       <Section title="Міста" img={candy}>
-        <CitiesList cities={cities} deleteCity={deleteCity} editCity={editCity} />
+        <CitiesList
+          cities={cities}
+          deleteCity={deleteCity}
+          editCity={editCity}
+        />
         {openedForm === "cities" && <CitiesForm addCities={addCities} />}
         <Button
           title="Додати місто"
@@ -83,7 +94,11 @@ const UniversityPage = () => {
         />
       </Section>
       <Section title="Факультети" img={robot}>
-        <FacultiesList faculties={faculties} deleteFaculty={deleteFaculty} editFaculty={editFaculty} />
+        <FacultiesList
+          faculties={faculties}
+          deleteFaculty={deleteFaculty}
+          editFaculty={editFaculty}
+        />
         {openedForm === "faculties" && (
           <FacultiesForm addFaculties={addFaculties} />
         )}
