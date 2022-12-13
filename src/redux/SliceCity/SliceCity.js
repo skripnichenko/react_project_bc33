@@ -4,7 +4,7 @@ import {
   changeCities,
   deleteCities,
   getCities,
-} from "./operationCities";
+} from "./operationCity";
 
 const CitiesSlice = createSlice({
   name: "cities",

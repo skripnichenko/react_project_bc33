@@ -5,7 +5,6 @@ export const getCities = createAsyncThunk(
   "cities/getCities",
 
   async (_, thunkAPI) => {
-    console.log("rfghjkl");
     try {
       const response = await CitiesApi.getCities();
       console.log(response);
