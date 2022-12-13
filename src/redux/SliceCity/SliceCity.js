@@ -16,13 +16,11 @@ const CitiesSlice = createSlice({
   extraReducers: {
     ////GET Cities
     [getCities.pending](state) {
-      console.log("payload");
       // return {...state, isLoading: true}
       state.isLoading = true;
       state.error = null;
     },
     [getCities.fulfilled](state, action) {
-      console.log("payload", action.payload);
       state.cities = action.payload;
       state.error = null;
       state.isLoading = false;
@@ -33,6 +31,7 @@ const CitiesSlice = createSlice({
     },
     //////Delete Cities
     [deleteCities.pending]: (state) => {
+      console.log("two");
       state.isLoading = true;
       state.error = null;
     },

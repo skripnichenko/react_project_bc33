@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import { CitiesApi } from "./API/api";
 import { useDispatch } from "react-redux";
 import { getCities } from "./redux/SliceCity/operationCity";
+import { getFaculties } from "./redux/SliceFaculties/operationFaculties";
+import { getTutors } from "./redux/SliceTutors/operationTutors";
 
 const UniversityPage = lazy(() => import("./pages/UniversityPage"));
 const FacultiesPage = lazy(() => import("./pages/FacultiesPage"));
@@ -14,6 +16,8 @@ function App() {
 
   useEffect(() => {
     dispatch(getCities());
+    dispatch(getFaculties());
+    dispatch(getTutors());
   }, []);
 
   return (

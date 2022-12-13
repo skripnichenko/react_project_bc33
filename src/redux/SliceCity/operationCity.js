@@ -7,7 +7,6 @@ export const getCities = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await CitiesApi.getCities();
-      console.log(response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -20,7 +19,8 @@ export const deleteCities = createAsyncThunk(
 
   async (id, thunkAPI) => {
     try {
-      const response = await CitiesApi.deleteFaculty(id);
+      const response = await CitiesApi.deleteCity(id);
+      console.log("first");
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -33,7 +33,7 @@ export const changeCities = createAsyncThunk(
 
   async ({ id, name }, thunkAPI) => {
     try {
-      const response = await CitiesApi.changeFaculty(id, { name });
+      const response = await CitiesApi.changeCity(id, { name });
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -46,7 +46,7 @@ export const addCities = createAsyncThunk(
 
   async (obj, thunkAPI) => {
     try {
-      const response = await CitiesApi.addFaculty(obj);
+      const response = await CitiesApi.addCity(obj);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

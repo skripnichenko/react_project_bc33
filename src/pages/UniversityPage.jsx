@@ -15,53 +15,70 @@ import CitiesList from "../components/CitiesList/CitiesList";
 import FacultiesList from "../components/FacultiesList/FacultiesList";
 import { CitiesForm, FacultiesForm, TutorsForm } from "../components/Form/Form";
 import data from "../utils/data.json";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader/Loader";
+import { deleteCities } from "../redux/SliceCity/operationCity";
 
 const UniversityPage = () => {
-  const [openedForm, setOpenedForm] = useState("");
-  const [cities, setCities] = useState(data.cities);
-  const [faculties, setFaculties] = useState(data.department);
-  const [tutors, setTutors] = useState(data.tutors);
-  const { name, description } = data;
+  const {
+    cities,
+    isLoading: isLoadingCities,
+    error: errorCities,
+  } = useSelector((state) => state.cities);
 
-  const citiesStor = useSelector((state) => state.cities.cities);
-  console.log(citiesStor);
+  const {
+    faculties,
+    isLoading: isLoadingFaculties,
+    error: errorFaculties,
+  } = useSelector((state) => state.faculties);
+  const {
+    tutors,
+    isLoading: isLoadingTutors,
+    error: errorTutors,
+  } = useSelector((state) => state.tutors);
+  // const [cities, setCities] = useState(data.cities);
+  // const [faculties, setFaculties] = useState(data.department);
+  // const [tutors, setTutors] = useState(data.tutors);
+  const [openedForm, setOpenedForm] = useState("");
+  const { name, description } = data;
+  const dispatch = useDispatch();
 
   const changeOpenedForm = (param) => {
     setOpenedForm((prevState) => (prevState === param ? "" : param));
   };
 
   const addCities = (city) => {
-    setCities((prevState) => [...prevState, city]);
+    // setCities((prevState) => [...prevState, city]);
   };
   const addFaculties = (faculty) => {
-    setFaculties((prevState) => [...prevState, { name: faculty }]);
+    // setFaculties((prevState) => [...prevState, { name: faculty }]);
   };
   const addTutors = (tutor) => {
-    setTutors((prevState) => [...prevState, tutor]);
+    // setTutors((prevState) => [...prevState, tutor]);
   };
 
   const deleteCity = (id) => {
-    setCities((prevState) => prevState.filter((el) => el.id !== id));
+    dispatch(deleteCities(id));
+    // setCities((prevState) => prevState.filter((el) => el.id !== id));
   };
 
   const deleteFaculty = (id) => {
-    setFaculties((prevState) => prevState.filter((el) => el.id !== id));
+    // setFaculties((prevState) => prevState.filter((el) => el.id !== id));
   };
 
   const editCity = (id, title) => {
-    setCities((prevState) =>
-      prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
-    );
+    // setCities((prevState) =>
+    //   prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
+    // );
   };
 
   const editFaculty = (id, title) => {
-    setFaculties((prevState) =>
-      prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
-    );
+    // setFaculties((prevState) =>
+    //   prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
+    // );
   };
 
-  return (
+  return !isLoadingCities || !isLoadingFaculties || !isLoadingTutors ? (
     <Main>
       <Section title="Інформація про університет" isLeft={false}>
         <div className={s.universityInfo}>
@@ -109,6 +126,8 @@ const UniversityPage = () => {
         />
       </Section>
     </Main>
+  ) : (
+    <Loader />
   );
 };
 
