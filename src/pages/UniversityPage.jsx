@@ -17,7 +17,17 @@ import { CitiesForm, FacultiesForm, TutorsForm } from "../components/Form/Form";
 import data from "../utils/data.json";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader/Loader";
-import { deleteCities } from "../redux/SliceCity/operationCity";
+import {
+  addCities,
+  changeCities,
+  deleteCities,
+} from "../redux/SliceCity/operationCity";
+import {
+  addFaculties,
+  changeFaculties,
+  deleteFaculties,
+} from "../redux/SliceFaculties/operationFaculties";
+import { addTutors } from "../redux/SliceTutors/operationTutors";
 
 const UniversityPage = () => {
   const {
@@ -47,13 +57,16 @@ const UniversityPage = () => {
     setOpenedForm((prevState) => (prevState === param ? "" : param));
   };
 
-  const addCities = (city) => {
+  const onAddCities = (city) => {
+    dispatch(addCities(city));
     // setCities((prevState) => [...prevState, city]);
   };
-  const addFaculties = (faculty) => {
+  const onAddFaculties = (faculty) => {
+    dispatch(addFaculties({ name: faculty }));
     // setFaculties((prevState) => [...prevState, { name: faculty }]);
   };
-  const addTutors = (tutor) => {
+  const onAddTutors = (tutor) => {
+    dispatch(addTutors(tutor));
     // setTutors((prevState) => [...prevState, tutor]);
   };
 
@@ -63,16 +76,19 @@ const UniversityPage = () => {
   };
 
   const deleteFaculty = (id) => {
+    dispatch(deleteFaculties(id));
     // setFaculties((prevState) => prevState.filter((el) => el.id !== id));
   };
 
-  const editCity = (id, title) => {
+  const editCity = (id, name) => {
+    dispatch(changeCities({ id, name }));
     // setCities((prevState) =>
     //   prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
     // );
   };
 
-  const editFaculty = (id, title) => {
+  const editFaculty = (id, name) => {
+    dispatch(changeFaculties({ id, name }));
     // setFaculties((prevState) =>
     //   prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
     // );
@@ -90,7 +106,7 @@ const UniversityPage = () => {
       </Section>
       <Section title="Викладачі" img={cat}>
         <TutorsList tutors={tutors} />
-        {openedForm === "tutors" && <TutorsForm addTutors={addTutors} />}
+        {openedForm === "tutors" && <TutorsForm addTutors={onAddTutors} />}
         <Button
           title="Додати викладача"
           callback={() => changeOpenedForm("tutors")}
@@ -103,7 +119,7 @@ const UniversityPage = () => {
           deleteCity={deleteCity}
           editCity={editCity}
         />
-        {openedForm === "cities" && <CitiesForm addCities={addCities} />}
+        {openedForm === "cities" && <CitiesForm addCities={onAddCities} />}
         <Button
           title="Додати місто"
           callback={() => changeOpenedForm("cities")}
@@ -117,7 +133,7 @@ const UniversityPage = () => {
           editFaculty={editFaculty}
         />
         {openedForm === "faculties" && (
-          <FacultiesForm addFaculties={addFaculties} />
+          <FacultiesForm addFaculties={onAddFaculties} />
         )}
         <Button
           title="Додати факультет"

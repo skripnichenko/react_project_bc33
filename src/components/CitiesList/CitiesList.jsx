@@ -10,7 +10,6 @@ const CitiesList = ({
   return (
     <ul className="row">
       {cities.map(({ name, id }) => {
-        console.log(id);
         return (
           <EditField
             className="col-4"

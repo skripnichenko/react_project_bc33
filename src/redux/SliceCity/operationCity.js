@@ -20,7 +20,6 @@ export const deleteCities = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await CitiesApi.deleteCity(id);
-      console.log("first");
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
