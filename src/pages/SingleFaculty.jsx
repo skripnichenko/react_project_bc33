@@ -1,11 +1,17 @@
 import React from 'react'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Paper from '../components/Paper/Paper'
 import Section from '../components/Section/Section';
 import s from './SingleFaculty.module.css';
 
 const SingleFaculty = () => {
+    const faculties = useSelector(state => state.faculties.faculties)
     const [activeTab, setActiveTab] = useState('description');
+    const {id} = useParams();
+
+    const currentFaculty = faculties.filter(el => el.id === id)[0];
 
 
     return (
@@ -21,11 +27,9 @@ const SingleFaculty = () => {
                 </div>
                 <Paper className={s.space}>
                     {activeTab === 'description' ? <p>
-                        Опыт, концентрат знаний и возможность избежать большинство ошибок при приеме на работу. Мы знаем, что хотят большинство локальных и иностранных компаний и можем вам это дать.
-                        А еще мы постоянно совершенствуем наши курсы программирования, добавляя туда что-то новое. Вы можете лично ознакомиться с историями успеха наших выпускников, чтобы убедиться в эффективности нашей методики обучения. Да, мы начнем с азов и самой простой информации. Знаем, что большинство людей приходят к нам с нулевыми знаниями.
+                    {currentFaculty.description}
                     </p> : <p>
-                        History Опыт, концентрат знаний и возможность избежать большинство ошибок при приеме на работу. Мы знаем, что хотят большинство локальных и иностранных компаний и можем вам это дать.
-                        А еще мы постоянно совершенствуем наши курсы программирования, добавляя туда что-то новое. Вы можете лично ознакомиться с историями успеха наших выпускников, чтобы убедиться в эффективности нашей методики обучения. Да, мы начнем с азов и самой простой информации. Знаем, что большинство людей приходят к нам с нулевыми знаниями.
+                       {currentFaculty.history}
                     </p>}
                 </Paper>
             </Section>

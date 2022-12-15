@@ -46,9 +46,6 @@ const UniversityPage = () => {
     isLoading: isLoadingTutors,
     error: errorTutors,
   } = useSelector((state) => state.tutors);
-  // const [cities, setCities] = useState(data.cities);
-  // const [faculties, setFaculties] = useState(data.department);
-  // const [tutors, setTutors] = useState(data.tutors);
   const [openedForm, setOpenedForm] = useState("");
   const { name, description } = data;
   const dispatch = useDispatch();
@@ -58,40 +55,29 @@ const UniversityPage = () => {
   };
 
   const onAddCities = (city) => {
-    dispatch(addCities(city));
-    // setCities((prevState) => [...prevState, city]);
+    dispatch(addCities({name: city}));
   };
   const onAddFaculties = (faculty) => {
     dispatch(addFaculties({ name: faculty }));
-    // setFaculties((prevState) => [...prevState, { name: faculty }]);
   };
   const onAddTutors = (tutor) => {
     dispatch(addTutors(tutor));
-    // setTutors((prevState) => [...prevState, tutor]);
   };
 
   const deleteCity = (id) => {
     dispatch(deleteCities(id));
-    // setCities((prevState) => prevState.filter((el) => el.id !== id));
   };
 
   const deleteFaculty = (id) => {
     dispatch(deleteFaculties(id));
-    // setFaculties((prevState) => prevState.filter((el) => el.id !== id));
   };
 
   const editCity = (id, name) => {
     dispatch(changeCities({ id, name }));
-    // setCities((prevState) =>
-    //   prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
-    // );
   };
 
   const editFaculty = (id, name) => {
     dispatch(changeFaculties({ id, name }));
-    // setFaculties((prevState) =>
-    //   prevState.map((el) => (el.id !== id ? el : { ...el, name: title }))
-    // );
   };
 
   return !isLoadingCities || !isLoadingFaculties || !isLoadingTutors ? (

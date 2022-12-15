@@ -1,4 +1,6 @@
 import React from "react";
+import { Formik } from 'formik';
+import { useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import s from "./Form.module.css";
 
@@ -84,80 +86,76 @@ export class TutorsForm extends React.Component {
 }
 
 export class CitiesForm extends React.Component {
-  state = {
-    city: "",
+
+  onSubmit = (value) => {
+    this.props.addCities(value.city);
   };
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.props.addCities(this.state.city);
-    this.setState({
-      city: "",
-    });
-  };
-
-  onChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
 
   render() {
-    const { city } = this.state;
     return (
       <div className={s.wrap}>
         <h3>Додати місто</h3>
-        <form onSubmit={this.onSubmit}>
-          <input
-            className={s.inputWrapper}
-            type="text"
-            name="city"
-            placeholder="Місто"
-            onChange={this.onChange}
-            value={city}
-          />
-          <Button title="Додати" />
-        </form>
+        <Formik
+          initialValues={{ city: '' }}
+          validate={values => {
+            const errors = {};
+            if (!values.city) {
+              errors.city = 'Required';
+            }
+
+            return errors;
+          }}
+          onSubmit={(values) => {
+            this.onSubmit(values)
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <input
+                className={s.inputWrapper}
+                type="text"
+                name="city"
+                placeholder="Місто"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.city}
+              />
+              {errors.city && touched.city && errors.city}
+              <Button title="Додати" type="submit" />
+            </form>
+          )}
+        </Formik>
       </div>
     );
   }
 }
 
-export class FacultiesForm extends React.Component {
-  state = {
-    faculty: "",
-  };
+export const FacultiesForm = ({ addFaculties, }) => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => addFaculties(data.faculty);
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.props.addFaculties(this.state.faculty);
-  };
 
-  onChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  render() {
-    const { faculty } = this.state;
-    return (
-      <div className={s.wrap}>
-        <h3>Додати факультет</h3>
-        <form onSubmit={this.onSubmit}>
-          <input
-            className={s.inputWrapper}
-            type="text"
-            name="faculty"
-            placeholder="Факультет"
-            onChange={this.onChange}
-            value={faculty}
-          />
-          <Button title="Додати" />
-        </form>
-      </div>
-    );
-  }
+  console.log(errors);
+  return (
+    <div className={s.wrap}>
+      <h3>Додати факультет</h3>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          className={s.inputWrapper}
+          type="text"
+          {...register("faculty", { required: true, maxLength: 80 })}
+          placeholder="Факультет"
+        />
+        <Button title="Додати" type="submit" />
+      </form>
+    </div>
+  );
 }
